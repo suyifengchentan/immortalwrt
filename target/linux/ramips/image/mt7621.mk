@@ -1666,3 +1666,39 @@ define Device/zyxel_wap6805
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 TARGET_DEVICES += zyxel_wap6805
+define Device/raisecom_msg1500x00
+  $(Device/dsa-migration)
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE := 4096k
+  UBINIZE_OPTS := -E 5
+  IMAGE_SIZE := 130304k
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+    check-size
+  DEVICE_VENDOR := Raisecom
+  DEVICE_MODEL := MSG1500
+  DEVICE_VARIANT := X.00
+  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware kmod-usb2 \
+    kmod-usb-ledtrig-usbport wpad-basic
+endef
+TARGET_DEVICES += raisecom_msg1500x00
+
+define Device/nokia-sbell_a040wq
+  $(Device/dsa-migration)
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE := 4096k
+  UBINIZE_OPTS := -E 5
+  IMAGE_SIZE := 130304k
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+    check-size
+  DEVICE_VENDOR := Nokia ShanghaiBell
+  DEVICE_MODEL := A-040W-Q
+  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware kmod-usb2 \
+    kmod-usb-ledtrig-usbport wpad-basic
+endef
+TARGET_DEVICES += nokia-sbell_a040wq
